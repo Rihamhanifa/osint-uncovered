@@ -5,6 +5,10 @@ A comprehensive, responsive field guide for Open Source Intelligence (OSINT). Th
 **Created by [RIHAM](https://github.com/Rihamhanifa)**
 
 ---
+## 🌐 Live Website
+**See it in action here:**  
+👉 [https://rihamhanifa.github.io/osint-uncovered/](https://rihamhanifa.github.io/osint-uncovered/)
+
 
 ## 🚀 Features
 - **15 Detailed Tool Guides**: Covers everything from Google Dorking to AI-integrated recon.
