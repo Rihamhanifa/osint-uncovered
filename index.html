@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>OSINT Uncovered · 15 Essential Tools · Created by RIHAM</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+        .blog-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+            padding: 2.5rem;
+            position: relative;
+        }
+        @media (max-width: 768px) {
+            body { padding: 1rem 0.5rem; }
+            .blog-container { padding: 1.5rem; }
+        }
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #0a1c2f;
+        }
+        h1 { font-size: 3rem; }
+        h2 { 
+            font-size: 2.2rem; 
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            border-left: 8px solid #2563eb;
+            padding-left: 1.5rem;
+        }
+        h3 { 
+            font-size: 1.6rem; 
+            margin: 2rem 0 1rem;
+            color: #1e40af;
+        }
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 28px;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 25px 40px -12px rgba(0,0,0,0.25);
+        }
+        .hero-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, #0a1c2f 0%, #1e40af 100%);
+            opacity: 0.85;
+        }
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            width: 90%;
+            max-width: 1000px;
+        }
+        .hero-title {
+            font-size: 3.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            letter-spacing: -0.02em;
+        }
+        .hero-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+        .hero-divider {
+            width: 150px;
+            height: 4px;
+            background: #ffd700;
+            margin: 1.8rem auto;
+            border-radius: 4px;
+        }
+        .hero-tags {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        .hero-credit {
+            background: rgba(255,215,0,0.2);
+            padding: 0.8rem 2.5rem;
+            border-radius: 50px;
+            display: inline-block;
+            border: 2px solid #ffd700;
+        }
+        .hero-credit span {
+            color: #ffd700;
+            font-weight: 700;
+            letter-spacing: 3px;
+            font-size: 1.2rem;
+        }
+        .toc-card {
+            background: #f0f7ff;
+            border-radius: 24px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border: 1px solid #dbeafe;
+        }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.2rem;
+        }
+        .toc-grid a {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #1e293b;
+            font-weight: 500;
+            padding: 0.5rem;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+        .toc-grid a:hover {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        .tool-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        .tool-card:hover {
+            border-color: #2563eb;
+            box-shadow: 0 20px 30px -8px rgba(37,99,235,0.15);
+        }
+        .tool-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.8rem;
+        }
+        .tool-image {
+            flex: 0.8;
+            min-width: 280px;
+        }
+        .tool-image img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: 0 12px 25px -8px rgba(0,0,0,0.15);
+        }
+        .tool-badges {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background: #e2e8f0;
+            padding: 0.3rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #0f172a;
+        }
+        .badge-blue {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        .tool-title {
+            flex: 1.5;
+        }
+        .tool-name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0a1c2f;
+            margin-bottom: 0.5rem;
+        }
+        .tool-desc {
+            font-size: 1.1rem;
+            color: #334155;
+            line-height: 1.6;
+        }
+        .code-block {
+            background: #0b1e33;
+            color: #e2e8f0;
+            padding: 1.2rem 1.5rem;
+            border-radius: 16px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.95rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #2d3f5e;
+        }
+        .copy-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #4b6584;
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover {
+            background: #2563eb;
+            border-color: #2563eb;
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid #cbd5e1;
+        }
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .ethics-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .permitted {
+            background: #dcfce7;
+            border-left: 8px solid #16a34a;
+            padding: 1.5rem;
+            border-radius: 16px;
+        }
+        .prohibited {
+            background: #fee2e2;
+            border-left: 8px solid #dc2626;
+            padding: 1.5rem;
+            border-radius: 16px;
+        }
+        .author-section {
+            margin-top: 4rem;
+            padding: 2.5rem;
+            background: linear-gradient(145deg, #0a1c2f, #0b2b4a);
+            border-radius: 28px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 25px 40px -12px rgba(0,0,0,0.3);
+        }
+        .author-name {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+        .author-title {
+            color: #ffd700;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        .author-bio {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #e6f0ff;
+        }
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .social-btn {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+        .social-btn:hover {
+            background: #2563eb;
+            border-color: white;
+            transform: translateY(-3px);
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #0f172a;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+        .back-to-top:hover {
+            background: #2563eb;
+            transform: translateY(-5px);
+        }
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.3rem; }
+            .tool-name { font-size: 1.8rem; }
+            .author-name { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="blog-container">
+
+    <!-- ===== HERO BANNER WITH RIHAM CREDIT ===== -->
+    <div class="hero-banner">
+        <img src="https://images.pexels.com/photos/5380642/pexels-photo-5380642.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="OSINT Cybersecurity" class="hero-img">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div style="margin-bottom: 1.5rem;">
+                <span style="background: rgba(255,215,0,0.15); padding: 0.5rem 1.8rem; border-radius: 50px; border: 1px solid #ffd700; color: #ffd700; font-weight: 600; letter-spacing: 2px;">
+                    ✧ OPEN SOURCE INTELLIGENCE ✧
+                </span>
+            </div>
+            <h1 class="hero-title">OSINT UNCOVERED</h1>
+            <p class="hero-subtitle">15 Essential Tools & How to Use Them</p>
+            <div class="hero-divider"></div>
+            <div class="hero-tags">
+                <span style="background: rgba(255,255,255,0.15); padding: 0.4rem 1.2rem; border-radius: 50px;">Google Dorking</span>
+                <span style="background: rgba(255,255,255,0.15); padding: 0.4rem 1.2rem; border-radius: 50px;">Maltego</span>
+                <span style="background: rgba(255,255,255,0.15); padding: 0.4rem 1.2rem; border-radius: 50px;">Shodan</span>
+                <span style="background: rgba(255,255,255,0.15); padding: 0.4rem 1.2rem; border-radius: 50px;">theHarvester</span>
+                <span style="background: rgba(255,255,255,0.15); padding: 0.4rem 1.2rem; border-radius: 50px;">Intelligence X</span>
+                <span style="background: rgba(255,255,255,0.15); padding: 0.4rem 1.2rem; border-radius: 50px;">Censys</span>
+            </div>
+            <div class="hero-credit">
+                <span>✧ CREATED BY RIHAM ✧</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== TABLE OF CONTENTS ===== -->
+    <div class="toc-card">
+        <h3 style="margin-top: 0; display: flex; align-items: center; gap: 10px; color: #0a1c2f;">
+            <i class="fas fa-list-ul" style="color: #2563eb;"></i> TABLE OF CONTENTS
+        </h3>
+        <div class="toc-grid">
+            <a href="#what-is-osint"><i class="fas fa-chevron-right"></i> What is OSINT?</a>
+            <a href="#where-used"><i class="fas fa-chevron-right"></i> Where OSINT Used</a>
+            <a href="#google-dorking"><i class="fas fa-chevron-right"></i> 1. Google Dorking</a>
+            <a href="#bellingcat"><i class="fas fa-chevron-right"></i> 2. Bellingcat Toolkit</a>
+            <a href="#maltego"><i class="fas fa-chevron-right"></i> 3. Maltego</a>
+            <a href="#shodan"><i class="fas fa-chevron-right"></i> 4. Shodan</a>
+            <a href="#theharvester"><i class="fas fa-chevron-right"></i> 5. theHarvester</a>
+            <a href="#intelx"><i class="fas fa-chevron-right"></i> 6. Intelligence X</a>
+            <a href="#censys"><i class="fas fa-chevron-right"></i> 7. Censys</a>
+            <a href="#osint-framework"><i class="fas fa-chevron-right"></i> 8. OSINT Framework</a>
+            <a href="#builtwith"><i class="fas fa-chevron-right"></i> 9. BuiltWith</a>
+            <a href="#metagoofil"><i class="fas fa-chevron-right"></i> 10. Metagoofil</a>
+            <a href="#otx"><i class="fas fa-chevron-right"></i> 11. AlienVault OTX</a>
+            <a href="#spiderfoot"><i class="fas fa-chevron-right"></i> 12. SpiderFoot</a>
+            <a href="#ahmia"><i class="fas fa-chevron-right"></i> 13. Ahmia.fi</a>
+            <a href="#netcraft"><i class="fas fa-chevron-right"></i> 14. Netcraft</a>
+            <a href="#jake-ai"><i class="fas fa-chevron-right"></i> 15. Jake AI</a>
+            <a href="#ethics"><i class="fas fa-chevron-right"></i> Legal & Ethics</a>
+        </div>
+    </div>
+
+    <!-- ===== WHAT IS OSINT ===== -->
+    <section id="what-is-osint">
+        <h2>🔍 What is OSINT?</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin: 2rem 0;">
+            <div style="flex: 1.2; min-width: 300px;">
+                <p style="font-size: 1.2rem; font-weight: 600; color: #0a1c2f;">Open Source Intelligence (OSINT) is the systematic collection and analysis of publicly available information to produce actionable intelligence.</p>
+                <p><strong>Golden rule:</strong> Information is not intelligence. Raw data must be verified, correlated, and contextualized.</p>
+                <p><strong>What qualifies as open source?</strong> Websites, social media, DNS records, Shodan, public records, archives, and leaked data (ethically handled).</p>
+            </div>
+            <div style="flex: 0.8; min-width: 250px;">
+                <img src="https://images.squarespace-cdn.com/content/v1/5bf312d73917ee59c6a6ef5b/1553018549776-ULXYV93I2VZ1C3MWGJS4/What+is+OSINT-thumb.jpg" alt="OSINT Investigation" style="width: 100%; border-radius: 20px; box-shadow: 0 20px 30px -8px rgba(0,0,0,0.15);">
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== WHERE OSINT IS USED ===== -->
+    <section id="where-used">
+        <h2>📌 Where OSINT is Used</h2>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>User Group</th><th>Applications</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Cybersecurity</strong></td><td>Threat detection, attack surface mapping, red teaming</td></tr>
+                    <tr><td><strong>Law Enforcement</strong></td><td>Criminal investigations, missing persons, suspect tracking</td></tr>
+                    <tr><td><strong>Journalism</strong></td><td>Fact-checking, war crimes documentation (Bellingcat)</td></tr>
+                    <tr><td><strong>Corporate Security</strong></td><td>Due diligence, third-party risk, brand protection</td></tr>
+                    <tr><td><strong>Financial/AML</strong></td><td>Fraud detection, shell company identification</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ===== TOOL 1: GOOGLE DORKING ===== -->
+    <div id="google-dorking" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1729872503418/1e5921bc-52ba-4410-86a3-5e96a2c22405.jpeg" alt="Google Dorking">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-tag"></i> Search Technique</span>
+                    <span class="badge badge-blue"><i class="fas fa-dollar-sign"></i> Free</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">Google Dorking</div>
+                <p class="tool-desc">Advanced search operators that expose invisible data – login panels, config files, exposed documents, and databases.</p>
+            </div>
+        </div>
+        <h4>📘 How to Use:</h4>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li><strong>Core operators:</strong> <code>site:</code>, <code>intitle:</code>, <code>inurl:</code>, <code>filetype:</code>, <code>"exact phrase"</code>, <code>cache:</code></li>
+            <li><strong>Example:</strong> <code>site:nasa.gov filetype:pdf "confidential"</code></li>
+            <li><strong>Find webcams:</strong> <code>intitle:"Live View / - AXIS"</code></li>
+            <li><strong>Exposed Git repos:</strong> <code>intitle:index.of .git</code></li>
+            <li><strong>AWS keys:</strong> <code>filetype:pem intext:PRIVATE KEY</code></li>
+        </ul>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>Penetration Testing</td><td>Discover admin panels, backup files, open directories</td></tr>
+                    <tr><td>Breach Assessment</td><td>Find publicly indexed database dumps</td></tr>
+                    <tr><td>Competitive Intel</td><td>Uncover competitor's exposed documents</td></tr>
+                    <tr><td>Personal Audit</td><td>Check your own domain exposure</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== TOOL 2: BELLINGCAT TOOLKIT ===== -->
+    <div id="bellingcat" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://images.pexels.com/photos/7988079/pexels-photo-7988079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Bellingcat Toolkit">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-folder"></i> Resource Directory</span>
+                    <span class="badge badge-blue"><i class="fas fa-dollar-sign"></i> Free</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">Bellingcat Toolkit</div>
+                <p class="tool-desc">Curated OSINT resources from world‑leading investigators – geolocation, image verification, satellite imagery, and more.</p>
+            </div>
+        </div>
+        <h4>📘 How to Use:</h4>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li>Visit <a href="https://www.bellingcat.com/category/resources/" target="_blank">bellingcat.com/resources</a></li>
+            <li>Browse categories: Geolocation, Chronolocation, Verification, People, Archives</li>
+            <li>Click any tool – direct link + investigation tips</li>
+        </ul>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>War Crimes Documentation</td><td>Geolocate conflict videos via satellite imagery</td></tr>
+                    <tr><td>Disinformation Debunking</td><td>Reverse image search, ELA analysis</td></tr>
+                    <tr><td>Human Rights</td><td>Track forced evictions using historical imagery</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== TOOL 3: MALEGO ===== -->
+    <div id="maltego" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://www.webasha.com/blog/uploads/images/202412/image_750x_676d21293d0eb.webp" alt="Maltego">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-project-diagram"></i> Visual Link Analysis</span>
+                    <span class="badge badge-blue">Free CE / Paid</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">Maltego</div>
+                <p class="tool-desc">Interactive relationship graphs connecting emails, domains, people, IPs, and social media using 100+ data sources.</p>
+            </div>
+        </div>
+        <h4>📘 How to Use:</h4>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li>Download Maltego CE – free registration</li>
+            <li>Install transforms from Hub (Shodan, HIBP, BuiltWith)</li>
+            <li>Drag entity → enter target → right‑click → Run Transform</li>
+            <li>Pivot: right‑click any new entity → run additional transforms</li>
+        </ul>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>Cybercrime Investigation</td><td>Link emails → social accounts → crypto wallets → infrastructure</td></tr>
+                    <tr><td>Fraud Detection</td><td>Map shell companies, nominee directors</td></tr>
+                    <tr><td>Attack Surface Mapping</td><td>Visualize all domains, IPs, certs related to your org</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== TOOL 4: SHODAN ===== -->
+    <div id="shodan" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Shodan">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-search-location"></i> IoT Search</span>
+                    <span class="badge badge-blue">Free tier / Pro</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">Shodan</div>
+                <p class="tool-desc">Search engine for internet‑connected devices – webcams, routers, servers, industrial control systems.</p>
+            </div>
+        </div>
+        <h4>📘 How to Use:</h4>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li>Visit shodan.io – free search without account</li>
+            <li>Use filters: <code>port:3389 country:JP</code> (RDP in Japan)</li>
+            <li><code>vuln:CVE-2021-44228</code> (Log4j vulnerable hosts)</li>
+            <li><code>org:"Your Company"</code> – monitor your own assets</li>
+        </ul>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>Attack Surface Management</td><td>Identify unauthorized devices, forgotten servers</td></tr>
+                    <tr><td>Vulnerability Prioritization</td><td>Scan for Log4j, ProxyShell on your IPs</td></tr>
+                    <tr><td>Third‑Party Risk</td><td>Assess vendor security posture</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== TOOL 5: THEHARVESTER ===== -->
+    <div id="theharvester" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://media2.dev.to/dynamic/image/width=1080,height=1080,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2Ffz0o8i5df06fkomd4jfj.png" alt="theHarvester">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-envelope"></i> Email Discovery</span>
+                    <span class="badge badge-blue">Open Source</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">theHarvester</div>
+                <p class="tool-desc">Email, subdomain & employee name harvester from public sources.</p>
+            </div>
+        </div>
+        <h4>📘 How to Use:</h4>
+        <div class="code-block">
+            <code>theHarvester -d example.com -l 100 -b bing,duckduckgo,threatcrowd</code>
+            <button class="copy-btn" onclick="copyCommand('theHarvester -d example.com -l 100 -b bing,duckduckgo,threatcrowd')"><i class="fas fa-copy"></i> Copy</button>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>Pentest Recon</td><td>Build target list, find staging servers</td></tr>
+                    <tr><td>Phishing Assessment</td><td>Discover exposed employee emails</td></tr>
+                    <tr><td>Shadow IT</td><td>Uncover dev/test subdomains</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== TOOL 6: INTELLIGENCE X ===== -->
+    <div id="intelx" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDgKksOnTT5vq9Zv8fEfKU2ocmhbKEdRcKgg&s" alt="Intelligence X">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-archive"></i> Dark Web Archive</span>
+                    <span class="badge badge-blue">Free tier / Paid</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">Intelligence X</div>
+                <p class="tool-desc">Dark web, data leak & historical WHOIS archive. Selector‑based search (email, domain, IP, bitcoin).</p>
+            </div>
+        </div>
+        <h4>📘 How to Use:</h4>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li>Visit intelx.io – enter email/domain/bitcoin address</li>
+            <li>Free tier returns limited results; register for more credits</li>
+            <li>Use advanced filters (date, media type, TLD)</li>
+        </ul>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>Credential Exposure</td><td>Search company email domain in breach archives</td></tr>
+                    <tr><td>Dark Web Intel</td><td>Monitor paste sites without Tor</td></tr>
+                    <tr><td>Historical WHOIS</td><td>Recover pre‑GDPR registration data</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== TOOL 7: CENSYS ===== -->
+    <div id="censys" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Censys">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-certificate"></i> Certificate Search</span>
+                    <span class="badge badge-blue">Free / Commercial</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">Censys</div>
+                <p class="tool-desc">Internet asset & certificate search – stronger on SSL/TLS than Shodan.</p>
+            </div>
+        </div>
+        <h4>📘 How to Use:</h4>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li>Visit search.censys.io</li>
+            <li>Certificate search: <code>names: target.com</code></li>
+            <li>Find all domains sharing same certificate (phishing infrastructure)</li>
+            <li>Host search: IP → open ports, services, history</li>
+        </ul>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>Phishing Investigation</td><td>Cert fingerprint → all malicious domains using same cert</td></tr>
+                    <tr><td>Shadow IT</td><td>Find unauthorized subdomains with valid certs</td></tr>
+                    <tr><td>Expiry Monitoring</td><td>Certificates near expiration</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== TOOL 8: OSINT FRAMEWORK ===== -->
+    <div id="osint-framework" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://eloquent-festival-6ad5e31a6a.media.strapiapp.com/OSINT_process_23304466c5.webp" alt="OSINT Framework">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-sitemap"></i> Resource Directory</span>
+                    <span class="badge badge-blue">Free</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">OSINT Framework</div>
+                <p class="tool-desc">Tree‑structured directory of OSINT tools by information type (username, email, domain, IP).</p>
+            </div>
+        </div>
+        <h4>📘 How to Use:</h4>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li>Visit osintframework.com</li>
+            <li>Click “+” to expand categories</li>
+            <li>Click any link → opens tool in new tab</li>
+            <li>Icons: (T1)=free, (T2)=registration, (T3)=paid</li>
+        </ul>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>Investigation Planning</td><td>Start with username → see all search resources</td></tr>
+                    <tr><td>Tool Discovery</td><td>Find alternatives to your usual tools</td></tr>
+                    <tr><td>Training</td><td>Learn OSINT categories systematically</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== TOOL 9: BUILTWITH ===== -->
+    <div id="builtwith" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://internetretailing.net/wp-content/uploads/2022/01/builtwith_Main.png" alt="BuiltWith">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-cube"></i> Technology Profiler</span>
+                    <span class="badge badge-blue">Free / Pro</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">BuiltWith</div>
+                <p class="tool-desc">Website technology stack detection – CMS, analytics, hosting, frameworks, email providers.</p>
+            </div>
+        </div>
+        <h4>📘 How to Use:</h4>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li>Visit builtwith.com → enter domain</li>
+            <li>Review detailed technology profile</li>
+            <li>Click "History" tab to see changes over time</li>
+        </ul>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>Vulnerability Assessment</td><td>Detect outdated software versions</td></tr>
+                    <tr><td>Competitive Analysis</td><td>See what tech competitors use</td></tr>
+                    <tr><td>Acquisition Due Diligence</td><td>Profile target's tech debt</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== TOOL 10: METAGOOFIL ===== -->
+    <div id="metagoofil" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://i.ytimg.com/vi/Rp2DOa8xWuo/maxresdefault.jpg" alt="Metagoofil">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-file-alt"></i> Metadata Extraction</span>
+                    <span class="badge badge-blue">Open Source</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">Metagoofil</div>
+                <p class="tool-desc">Extracts metadata (authors, usernames, paths, software) from public documents.</p>
+            </div>
+        </div>
+        <h4>📘 How to Use:</h4>
+        <div class="code-block">
+            <code>metagoofil -d example.com -t pdf,doc,xls -l 30 -o docs/ -f report.html</code>
+            <button class="copy-btn" onclick="copyCommand('metagoofil -d example.com -t pdf,doc,xls -l 30 -o docs/ -f report.html')"><i class="fas fa-copy"></i> Copy</button>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>Credential Guessing</td><td>Extract username patterns for wordlists</td></tr>
+                    <tr><td>Internal Network Mapping</td><td>Discover internal server names from document paths</td></tr>
+                    <tr><td>Data Leakage</td><td>Find confidential documents exposed online</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== TOOL 11: ALIENVAULT OTX ===== -->
+    <div id="otx" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://www.maltego.com/images/uploads/alienvault-otx-logo.png" alt="AlienVault OTX">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-shield-alt"></i> Threat Intelligence</span>
+                    <span class="badge badge-blue">Free</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">AlienVault OTX</div>
+                <p class="tool-desc">Community threat intelligence – IoC pulses (IPs, domains, hashes, TTPs).</p>
+            </div>
+        </div>
+        <h4>📘 How to Use:</h4>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li>Register at otx.alienvault.com – free</li>
+            <li>Search any indicator (IP, domain, hash)</li>
+            <li>View associated Pulses, threat families, tags</li>
+            <li>Subscribe to Pulses and set up alerts</li>
+        </ul>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>Threat Hunting</td><td>Proactively search for IoCs in your environment</td></tr>
+                    <tr><td>Incident Response</td><td>Pivot on IP/hash to understand broader campaign</td></tr>
+                    <tr><td>Vulnerability Prioritization</td><td>Check if CVE is actively exploited</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== TOOL 12: SPIDERFOOT ===== -->
+    <div id="spiderfoot" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://images.pexels.com/photos/1089440/pexels-photo-1089440.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="SpiderFoot">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-spider"></i> Automated Correlation</span>
+                    <span class="badge badge-blue">Legacy OSS / Paid</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">SpiderFoot</div>
+                <p class="tool-desc">Automated OSINT correlation across 200+ modules. Note: Open‑source version unmaintained.</p>
+            </div>
+        </div>
+        <h4>📘 How to Use (Legacy):</h4>
+        <div class="code-block">
+            <code>git clone https://github.com/smicallef/spiderfoot.git && python3 sf.py -l 127.0.0.1:5001</code>
+            <button class="copy-btn" onclick="copyCommand('git clone https://github.com/smicallef/spiderfoot.git && python3 sf.py -l 127.0.0.1:5001')"><i class="fas fa-copy"></i> Copy</button>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>Continuous Attack Surface</td><td>Periodic scans to detect new exposures</td></tr>
+                    <tr><td>M&A Assessment</td><td>Quick deep‑dive on acquisition target</td></tr>
+                    <tr><td>Fraud Investigation</td><td>Connect fraudulent emails/domains automatically</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== TOOL 13: AHMIA.FI ===== -->
+    <div id="ahmia" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://thecyberexpress.com/wp-content/uploads/What-Is-Ahmia.png" alt="Ahmia.fi">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-mask"></i> Tor Search</span>
+                    <span class="badge badge-blue">Free</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">Ahmia.fi</div>
+                <p class="tool-desc">Clearnet search engine for Tor hidden services (.onion). No Tor browser needed.</p>
+            </div>
+        </div>
+        <h4>📘 How to Use:</h4>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li>Visit ahmia.fi in any browser</li>
+            <li>Enter keywords – use quotes for exact phrases</li>
+            <li>Filter by time (past day, week, month)</li>
+        </ul>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>Data Leak Monitoring</td><td>Search your company/domain on .onion leak sites</td></tr>
+                    <tr><td>Dark Web Intel</td><td>Track discussions about vulnerabilities</td></tr>
+                    <tr><td>Fraud Investigation</td><td>Research counterfeit markets without Tor</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== TOOL 14: NETCRAFT ===== -->
+    <div id="netcraft" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://images.pexels.com/photos/5380792/pexels-photo-5380792.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Netcraft">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-shield-virus"></i> Security Analysis</span>
+                    <span class="badge badge-blue">Free</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">Netcraft Site Report</div>
+                <p class="tool-desc">Security, SSL, hosting history, email authentication (SPF/DKIM/DMARC), phishing reputation.</p>
+            </div>
+        </div>
+        <h4>📘 How to Use:</h4>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li>Visit sitereport.netcraft.com → enter domain</li>
+            <li>Review SSL, headers, hosting timeline, blocklist status</li>
+            <li>Report malicious sites via link</li>
+        </ul>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>Phishing Investigation</td><td>Check SSL validity, prior abuse, registrar</td></tr>
+                    <tr><td>Email Security Audit</td><td>Verify SPF/DMARC configuration</td></tr>
+                    <tr><td>Brand Impersonation</td><td>Run report on typosquatted domains</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== TOOL 15: JAKE AI ===== -->
+    <div id="jake-ai" class="tool-card">
+        <div class="tool-header">
+            <div class="tool-image">
+                <img src="https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Jake AI">
+                <div class="tool-badges">
+                    <span class="badge"><i class="fas fa-robot"></i> AI‑Integrated</span>
+                    <span class="badge badge-blue">Free credits / Paid</span>
+                </div>
+            </div>
+            <div class="tool-title">
+                <div class="tool-name">Jake AI / MCP Server</div>
+                <p class="tool-desc">Conversational OSINT – ask in plain English: "What domains are on this IP? Show WHOIS history."</p>
+            </div>
+        </div>
+        <h4>📘 How to Use:</h4>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li>Request access, get API key (free credits)</li>
+            <li>Log in to Jake AI web interface</li>
+            <li>Type questions: "Check domain example.com and its subdomains"</li>
+            <li>Bulk investigations (up to 10 IPs/domains)</li>
+        </ul>
+        <div class="table-responsive">
+            <table>
+                <thead><tr><th>Use Case</th><th>Application</th></tr></thead>
+                <tbody>
+                    <tr><td>Rapid Pivoting</td><td>Multi‑step queries without switching tools</td></tr>
+                    <tr><td>Non‑Tech Analysts</td><td>Conduct OSINT via natural language</td></tr>
+                    <tr><td>Report Generation</td><td>Build infrastructure profiles conversationally</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== LEGAL & ETHICAL BOUNDARIES ===== -->
+    <section id="ethics">
+        <h2>⚖️ Legal & Ethical Boundaries</h2>
+        <div class="ethics-table">
+            <div class="permitted">
+                <h4 style="color: #166534; margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-check-circle"></i> ✅ Permitted
+                </h4>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #16a34a;"></i> Viewing public content</li>
+                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #16a34a;"></i> Using official APIs (rate limits)</li>
+                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #16a34a;"></i> Archiving public information</li>
+                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-check" style="color: #16a34a;"></i> Passive reconnaissance</li>
+                </ul>
+            </div>
+            <div class="prohibited">
+                <h4 style="color: #991b1b; margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-times-circle"></i> ❌ Not Permitted
+                </h4>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-times" style="color: #dc2626;"></i> Bypassing paywalls / authentication</li>
+                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-times" style="color: #dc2626;"></i> Impersonation / deception</li>
+                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-times" style="color: #dc2626;"></i> Violating terms of service</li>
+                    <li style="margin-bottom: 0.8rem;"><i class="fas fa-times" style="color: #dc2626;"></i> Active scanning without authorization</li>
+                </ul>
+            </div>
+        </div>
+        <p style="margin-top: 1.5rem; padding: 1.5rem; background: #f1f5f9; border-radius: 16px;">
+            <strong>📌 Privacy regulations (GDPR, CCPA) apply.</strong> Public information does not mean unrestricted use. Always balance intelligence objectives with reasonable privacy expectations. Verify tool status – many OSS tools become stale.
+        </p>
+    </section>
+
+    <!-- ===== AUTHOR CREDIT – RIHAM ===== -->
+    <div class="author-section">
+        <div style="display: inline-block; background: rgba(255,215,0,0.15); padding: 0.6rem 2rem; border-radius: 50px; margin-bottom: 1.5rem; border: 2px solid #ffd700;">
+            <span style="color: #ffd700; font-weight: 700; letter-spacing: 3px; font-size: 1.1rem;">✧ CREATED BY RIHAM ✧</span>
+        </div>
+        
+        <div class="author-name">RIHAM</div>
+        <div class="author-title">OSINT Researcher & Cybersecurity Enthusiast</div>
+        
+        <div style="width: 100px; height: 4px; background: #ffd700; margin: 1.8rem auto; border-radius: 4px;"></div>
+        
+        <div class="author-bio">
+            Passionate about open source intelligence, digital forensics, and making investigative techniques accessible to everyone. This resource is dedicated to the global OSINT community — learn, verify, and investigate ethically.
+        </div>
+        
+        <div class="social-links">
+            <a href="https://github.com/Rihamhanifa" class="social-btn" onmouseover="this.style.background='#1e40af'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/riham-hanifa/" class="social-btn" onmouseover="this.style.background='#0077b5'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                <i class="fab fa-linkedin-in"></i> LinkedIn
+            </a>
+            <a href="#" class="social-btn" onmouseover="this.style.background='#000000'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                <i class="fab fa-twitter"></i> Twitter/X
+            </a>
+            <a href="#" class="social-btn" onmouseover="this.style.background='#ea4335'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                <i class="fas fa-envelope"></i> Email
+            </a>
+        </div>
+        
+        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.2);">
+            <p style="color: #b0d4ff; font-size: 0.95rem; margin-bottom: 0.3rem;">
+                © 2026  · All rights reserved · Free for educational use with attribution
+            </p>
+            <p style="color: #99b8d9; font-size: 0.85rem; margin-top: 0.8rem;">
+                <span style="background: rgba(255,255,255,0.05); padding: 0.2rem 1rem; border-radius: 20px;">
+                    🔍 v2.0 · Last updated: February 2026 · 15 Essential Tools
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div style="margin-top: 3rem; padding: 1.5rem; text-align: center; color: #64748b;">
+        <p>Built with <span style="color: #dc2626;">❤️</span> for the OSINT community · Free to share with attribution</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+            <i class="fas fa-dragon"></i> OSINT Uncovered · 15 Essential Tools · Created by RIHAM
+        </p>
+    </div>
+
+</div> <!-- End blog-container -->
+
+<!-- ===== BACK TO TOP BUTTON ===== -->
+<button id="backToTop" class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+    // Copy command function
+    window.copyCommand = function(cmd) {
+        navigator.clipboard.writeText(cmd).then(() => {
+            alert('✅ Command copied to clipboard!');
+        }).catch(() => {
+            alert('❌ Could not copy. Please copy manually.');
+        });
+    };
+
+    // Back to top button visibility
+    window.onscroll = function() {
+        let btn = document.getElementById('backToTop');
+        if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+            btn.style.display = 'flex';
+        } else {
+            btn.style.display = 'none';
+        }
+    };
+    
+    // Initial state
+    document.getElementById('backToTop').style.display = 'none';
+
+    // Smooth scrolling for table of contents
+    document.querySelectorAll('.toc-grid a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId && targetId.startsWith('#')) {
+                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
